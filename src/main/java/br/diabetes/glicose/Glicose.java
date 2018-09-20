@@ -5,6 +5,9 @@ import java.util.Date;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import br.diabetes.glicose.comandos.CriarGlicose;
+import br.diabetes.glicose.comandos.EditarGlicose;
+
 @Entity
 public class Glicose {
 	@EmbeddedId
@@ -15,10 +18,16 @@ public class Glicose {
 	public Glicose() {
 	}
 
-	public Glicose(Glicose novaGlicose) {
+	public Glicose(CriarGlicose comando) {
 		this.id = new GlicoseId();
-		this.valor = novaGlicose.getValor();
-		this.dataUltimaMedicao = novaGlicose.getDataUltimaMedicao();
+		this.valor = comando.getValor();
+		this.dataUltimaMedicao = comando.getDataUltimaMedicao();
+	}
+	
+	public void apply(EditarGlicose comando) {
+		this.id = comando.getId();
+		this.valor = comando.getValor();
+		this.dataUltimaMedicao = comando.getDataUltimaMedicao();
 	}
 
 	public GlicoseId getId() {

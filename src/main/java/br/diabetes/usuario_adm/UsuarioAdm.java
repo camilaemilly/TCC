@@ -4,6 +4,8 @@ import java.security.NoSuchAlgorithmException;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import br.diabetes.security.Criptografia;
+import br.diabetes.usuario_adm.comandos.CriarUsuarioAdm;
+import br.diabetes.usuario_adm.comandos.EditarUsuarioAdm;
 
 @Entity
 public class UsuarioAdm {
@@ -15,12 +17,19 @@ public class UsuarioAdm {
 
 	public UsuarioAdm() {
 	}
-
-	public UsuarioAdm(UsuarioAdm novoUsuario) throws NoSuchAlgorithmException {
+	
+	public UsuarioAdm(CriarUsuarioAdm comando) throws NoSuchAlgorithmException {
 		this.id = new UsuarioAdmId();
-		this.nome = novoUsuario.getNome();
-		this.email = novoUsuario.getEmail();
-		this.senha = Criptografia.criptografa(novoUsuario.getSenha());
+		this.nome = comando.getNome();
+		this.email = comando.getEmail();
+		this.senha = Criptografia.criptografa(comando.getSenha());
+	}
+	
+	public void apply(EditarUsuarioAdm comando) throws NoSuchAlgorithmException {
+		this.id = comando.getId();
+		this.nome = comando.getNome();
+		this.email = comando.getEmail();
+		this.senha = Criptografia.criptografa(comando.getSenha());
 	}
 
 	public UsuarioAdmId getId() {

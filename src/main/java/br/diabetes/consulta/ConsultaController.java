@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.diabetes.consulta.comandos.CriarConsulta;
+import br.diabetes.consulta.comandos.EditarConsulta;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -50,7 +52,7 @@ public class ConsultaController {
 
 	@ApiOperation("Cadastra consultas")
 	@PostMapping
-	public ResponseEntity<ConsultaId> post(@RequestBody Consulta comando) throws SQLException {
+	public ResponseEntity<ConsultaId> post(@RequestBody CriarConsulta comando) throws SQLException {
 		Optional<ConsultaId> optionalConsultaId = service.executar(comando);
 		if (optionalConsultaId.isPresent()) {
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(optionalConsultaId.get()).toUri();
@@ -61,7 +63,7 @@ public class ConsultaController {
 	
 	@ApiOperation("Altera consultas")
 	@PutMapping("/{id}")
-	public ResponseEntity<ConsultaId> putCirurgia(@RequestBody Consulta comando) throws SQLException {
+	public ResponseEntity<ConsultaId> putCirurgia(@RequestBody EditarConsulta comando) throws SQLException {
 		Optional<ConsultaId> optionalConsultaId = service.alterar(comando);
 		if (optionalConsultaId.isPresent()) {
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(optionalConsultaId.get()).toUri();

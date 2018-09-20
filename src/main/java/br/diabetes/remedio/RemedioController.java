@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.diabetes.remedio.comandos.CriarRemedio;
+import br.diabetes.remedio.comandos.EditarRemedio;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -50,7 +52,7 @@ public class RemedioController {
 
 	@ApiOperation("Cadastra remédios")
 	@PostMapping
-	public ResponseEntity<RemedioId> post(@RequestBody Remedio comando) throws SQLException {
+	public ResponseEntity<RemedioId> post(@RequestBody CriarRemedio comando) throws SQLException {
 		Optional<RemedioId> optionalRemedioId = service.executar(comando);
 		if (optionalRemedioId.isPresent()) {
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(optionalRemedioId.get()).toUri();
@@ -61,7 +63,7 @@ public class RemedioController {
 	
 	@ApiOperation("Altera remédios")
 	@PutMapping("/{id}")
-	public ResponseEntity<RemedioId> putCirurgia(@RequestBody Remedio comando) throws SQLException {
+	public ResponseEntity<RemedioId> putCirurgia(@RequestBody EditarRemedio comando) throws SQLException {
 		Optional<RemedioId> optionalRemedioId = service.alterar(comando);
 		if (optionalRemedioId.isPresent()) {
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(optionalRemedioId.get()).toUri();

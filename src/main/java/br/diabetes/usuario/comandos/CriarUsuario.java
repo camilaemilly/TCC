@@ -1,17 +1,8 @@
-package br.diabetes.usuario;
+package br.diabetes.usuario.comandos;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import br.diabetes.security.Criptografia;
-import br.diabetes.usuario.comandos.CriarUsuario;
-import br.diabetes.usuario.comandos.EditarUsuario;
 
-@Entity
-public class Usuario {
-	@EmbeddedId
-	private UsuarioId id;
+public class CriarUsuario {
 	private String nome;
 	private String email;
 	private String senha;
@@ -24,45 +15,6 @@ public class Usuario {
 	private float peso;
 	private float altura;
 	private int ativo;
-
-	public Usuario() {
-	}
-	
-	public Usuario(CriarUsuario comando) throws NoSuchAlgorithmException {
-		this.id = new UsuarioId();
-		this.nome = comando.getNome();
-		this.email = comando.getEmail();
-		this.senha = Criptografia.criptografa(comando.getSenha());
-		this.sexo = comando.getSexo();
-		this.cep = comando.getCep();
-		this.telefone = comando.getTelefone();
-		this.cidade = comando.getCidade();
-		this.estado = comando.getEstado();
-		this.nascimento = comando.getNascimento();
-		this.peso = comando.getPeso();
-		this.altura = comando.getAltura();
-		this.ativo = comando.getAtivo();
-	}
-	
-	public void apply(EditarUsuario comando) throws NoSuchAlgorithmException {
-		this.id = comando.getId();
-		this.nome = comando.getNome();
-		this.email = comando.getEmail();
-		this.senha = Criptografia.criptografa(comando.getSenha());
-		this.sexo = comando.getSexo();
-		this.cep = comando.getCep();
-		this.telefone = comando.getTelefone();
-		this.cidade = comando.getCidade();
-		this.estado = comando.getEstado();
-		this.nascimento = comando.getNascimento();
-		this.peso = comando.getPeso();
-		this.altura = comando.getAltura();
-		this.ativo = comando.getAtivo();
-	}
-
-	public UsuarioId getId() {
-		return id;
-	}
 
 	public String getNome() {
 		return nome;

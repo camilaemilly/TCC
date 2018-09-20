@@ -7,15 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.diabetes.permissao.comandos.CriarPermissao;
+import br.diabetes.permissao.comandos.EditarPermissao;
+
 @Service
 @Transactional
 public class PermissaoService {
 	@Autowired
 	private PermissaoRepository repo;
 	
-	public Optional<PermissaoId> executar(Permissao nova) {
-		repo.save(nova);
-		return Optional.of(nova.getId());
+	public Optional<PermissaoId> executar(CriarPermissao comando){
+		Permissao novo = repo.save(new Permissao(comando));
+		return Optional.of(novo.getId());
 	}
 	
 	public List<Permissao> encontrarTodos() {
@@ -30,8 +33,11 @@ public class PermissaoService {
 		repo.deleteById(id);
 	}
 	
-	public Optional<PermissaoId> alterar(Permissao nova) {
-		repo.save(nova);
-		return Optional.of(nova.getId());
+	public Optional<PermissaoId> alterar(EditarPermissao comando) {
+		Optional<Permissao> optional = repo.findById(comando.getId());
+		Permissao Permissao = optional.get();
+		Permissao.apply(comando);
+		repo.save(Permissao);
+		return Optional.of(comando.getId());
 	}
 }

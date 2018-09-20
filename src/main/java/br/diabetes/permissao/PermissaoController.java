@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.diabetes.permissao.comandos.CriarPermissao;
+import br.diabetes.permissao.comandos.EditarPermissao;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -50,7 +52,7 @@ public class PermissaoController {
 
 	@ApiOperation("Cadastra Permissões")
 	@PostMapping
-	public ResponseEntity<PermissaoId> post(@RequestBody Permissao comando) throws SQLException {
+	public ResponseEntity<PermissaoId> post(@RequestBody CriarPermissao comando) throws SQLException {
 		Optional<PermissaoId> optionalPermissaoId = service.executar(comando);
 		if (optionalPermissaoId.isPresent()) {
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(optionalPermissaoId.get()).toUri();
@@ -61,7 +63,7 @@ public class PermissaoController {
 	
 	@ApiOperation("Altera Permissões")
 	@PutMapping("/{id}")
-	public ResponseEntity<PermissaoId> putCirurgia(@RequestBody Permissao comando) throws SQLException {
+	public ResponseEntity<PermissaoId> putCirurgia(@RequestBody EditarPermissao comando) throws SQLException {
 		Optional<PermissaoId> optionalPermissaoId = service.alterar(comando);
 		if (optionalPermissaoId.isPresent()) {
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(optionalPermissaoId.get()).toUri();

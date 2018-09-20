@@ -1,16 +1,12 @@
-package br.diabetes.remedio;
+package br.diabetes.remedio.comandos;
 
 import java.sql.Time;
 import java.util.Date;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import br.diabetes.remedio.comandos.CriarRemedio;
-import br.diabetes.remedio.comandos.EditarRemedio;
+import br.diabetes.remedio.Remedio;
+import br.diabetes.remedio.RemedioId;
 
-@Entity
-public class Remedio {
-	@EmbeddedId
+public class BuscarRemedio {
 	private RemedioId id;
 	private String nome;
 	private Date dataInicio;
@@ -18,25 +14,14 @@ public class Remedio {
 	private String composicao;
 	private Time horario;
 
-	public Remedio() {
-	}
 
-	public Remedio(CriarRemedio comando) {
-		this.id = new RemedioId();
-		this.nome = comando.getNome();
-		this.dataInicio = comando.getDataInicio();
-		this.dataFim = comando.getDataFim();
-		this.composicao = comando.getComposicao();
-		this.horario = comando.getHorario();
-	}
-	
-	public void apply(EditarRemedio comando) {
-		this.id = comando.getId();
-		this.nome = comando.getNome();
-		this.dataInicio = comando.getDataInicio();
-		this.dataFim = comando.getDataFim();
-		this.composicao = comando.getComposicao();
-		this.horario = comando.getHorario();
+	public BuscarRemedio(Remedio comandos) {
+		this.id = comandos.getId();
+		this.nome = comandos.getNome();
+		this.dataInicio = comandos.getDataInicio();
+		this.dataFim = comandos.getDataFim();
+		this.composicao = comandos.getComposicao();
+		this.horario = comandos.getHorario();
 	}
 	
 	public RemedioId getId() {

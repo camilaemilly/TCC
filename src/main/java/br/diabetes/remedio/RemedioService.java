@@ -7,15 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.diabetes.remedio.comandos.CriarRemedio;
+import br.diabetes.remedio.comandos.EditarRemedio;
+
 @Service
 @Transactional
 public class RemedioService {
 	@Autowired
 	private RemedioRepository repo;
 	
-	public Optional<RemedioId> executar(Remedio nova) {
-		repo.save(nova);
-		return Optional.of(nova.getId());
+	public Optional<RemedioId> executar(CriarRemedio comando){
+		Remedio novo = repo.save(new Remedio(comando));
+		return Optional.of(novo.getId());
 	}
 	
 	public List<Remedio> encontrarTodos() {
@@ -30,8 +33,11 @@ public class RemedioService {
 		repo.deleteById(id);
 	}
 	
-	public Optional<RemedioId> alterar(Remedio nova) {
-		repo.save(nova);
-		return Optional.of(nova.getId());
+	public Optional<RemedioId> alterar(EditarRemedio comando) {
+		Optional<Remedio> optional = repo.findById(comando.getId());
+		Remedio Remedio = optional.get();
+		Remedio.apply(comando);
+		repo.save(Remedio);
+		return Optional.of(comando.getId());
 	}
 }

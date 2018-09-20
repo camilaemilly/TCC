@@ -5,6 +5,9 @@ import java.util.Date;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import br.diabetes.consulta.comandos.CriarConsulta;
+import br.diabetes.consulta.comandos.EditarConsulta;
+
 @Entity
 public class Consulta {
 	@EmbeddedId
@@ -17,12 +20,20 @@ public class Consulta {
 	public Consulta() {
 	}
 
-	public Consulta(Consulta novaConsulta) {
+	public Consulta(CriarConsulta comando) {
 		this.id = new ConsultaId();
-		this.nome = novaConsulta.getNome();
-		this.data = novaConsulta.getData();
-		this.medico = novaConsulta.getMedico();
-		this.local = novaConsulta.getLocal();
+		this.nome = comando.getNome();
+		this.data = comando.getData();
+		this.medico = comando.getMedico();
+		this.local = comando.getLocal();
+	}
+	
+	public void apply(EditarConsulta comando) {
+		this.id = comando.getId();
+		this.nome = comando.getNome();
+		this.data = comando.getData();
+		this.medico = comando.getMedico();
+		this.local = comando.getLocal();
 	}
 
 	public ConsultaId getId() {
@@ -60,5 +71,4 @@ public class Consulta {
 	public void setLocal(String local) {
 		this.local = local;
 	}
-	
 }

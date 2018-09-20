@@ -5,6 +5,9 @@ import java.sql.Time;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import br.diabetes.alarme.comandos.CriarAlarme;
+import br.diabetes.alarme.comandos.EditarAlarme;
+
 @Entity
 public class Alarme {
 	@EmbeddedId
@@ -15,10 +18,16 @@ public class Alarme {
 	public Alarme() {
 	}
 
-	public Alarme(Alarme novoAlarme) {
+	public Alarme(CriarAlarme comando) {
 		this.id = new AlarmeId();
-		this.horario = novoAlarme.getHorario();
-		this.status = novoAlarme.getStatus();
+		this.horario = comando.getHorario();
+		this.status = comando.getStatus();
+	}
+	
+	public void apply(EditarAlarme comando) {
+		this.id = comando.getId();
+		this.horario = comando.getHorario();
+		this.status = comando.getStatus();
 	}
 
 	public AlarmeId getId() {

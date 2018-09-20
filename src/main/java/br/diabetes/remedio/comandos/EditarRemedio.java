@@ -1,43 +1,17 @@
-package br.diabetes.remedio;
+package br.diabetes.remedio.comandos;
 
 import java.sql.Time;
 import java.util.Date;
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import br.diabetes.remedio.comandos.CriarRemedio;
-import br.diabetes.remedio.comandos.EditarRemedio;
+import br.diabetes.remedio.RemedioId;
 
-@Entity
-public class Remedio {
-	@EmbeddedId
+public class EditarRemedio {
 	private RemedioId id;
 	private String nome;
 	private Date dataInicio;
 	private Date dataFim;
 	private String composicao;
 	private Time horario;
-
-	public Remedio() {
-	}
-
-	public Remedio(CriarRemedio comando) {
-		this.id = new RemedioId();
-		this.nome = comando.getNome();
-		this.dataInicio = comando.getDataInicio();
-		this.dataFim = comando.getDataFim();
-		this.composicao = comando.getComposicao();
-		this.horario = comando.getHorario();
-	}
-	
-	public void apply(EditarRemedio comando) {
-		this.id = comando.getId();
-		this.nome = comando.getNome();
-		this.dataInicio = comando.getDataInicio();
-		this.dataFim = comando.getDataFim();
-		this.composicao = comando.getComposicao();
-		this.horario = comando.getHorario();
-	}
 	
 	public RemedioId getId() {
 		return id;

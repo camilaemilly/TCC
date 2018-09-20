@@ -7,15 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.diabetes.alarme.comandos.CriarAlarme;
+import br.diabetes.alarme.comandos.EditarAlarme;
+
 @Service
 @Transactional
 public class AlarmeService {
 	@Autowired
 	private AlarmeRepository repo;
 	
-	public Optional<AlarmeId> executar(Alarme nova) {
-		repo.save(nova);
-		return Optional.of(nova.getId());
+	public Optional<AlarmeId> executar(CriarAlarme comando) {
+		Alarme novo = repo.save(new Alarme(comando));
+		return Optional.of(novo.getId());
 	}
 	
 	public List<Alarme> encontrarTodos() {
@@ -26,8 +29,11 @@ public class AlarmeService {
 		return repo.findById(id);
 	}
 	
-	public Optional<AlarmeId> alterar(Alarme nova) {
-		repo.save(nova);
-		return Optional.of(nova.getId());
+	public Optional<AlarmeId> alterar(EditarAlarme comando) {
+		Optional<Alarme> optional = repo.findById(comando.getId());
+		Alarme alarme = optional.get();
+		alarme.apply(comando);
+		repo.save(alarme);
+		return Optional.of(comando.getId());
 	}
 }

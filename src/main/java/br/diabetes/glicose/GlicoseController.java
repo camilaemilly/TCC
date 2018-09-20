@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.diabetes.glicose.comandos.CriarGlicose;
+import br.diabetes.glicose.comandos.EditarGlicose;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -50,7 +52,7 @@ public class GlicoseController {
 
 	@ApiOperation("Cadastra hemoglobinas glicadas")
 	@PostMapping
-	public ResponseEntity<GlicoseId> post(@RequestBody Glicose comando) throws SQLException {
+	public ResponseEntity<GlicoseId> post(@RequestBody CriarGlicose comando) throws SQLException {
 		Optional<GlicoseId> optionalGlicoseId = service.executar(comando);
 		if (optionalGlicoseId.isPresent()) {
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(optionalGlicoseId.get()).toUri();
@@ -61,7 +63,7 @@ public class GlicoseController {
 	
 	@ApiOperation("Altera hemoglobinas glicadas")
 	@PutMapping("/{id}")
-	public ResponseEntity<GlicoseId> putCirurgia(@RequestBody Glicose comando) throws SQLException {
+	public ResponseEntity<GlicoseId> putCirurgia(@RequestBody EditarGlicose comando) throws SQLException {
 		Optional<GlicoseId> optionalGlicoseId = service.alterar(comando);
 		if (optionalGlicoseId.isPresent()) {
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(optionalGlicoseId.get()).toUri();

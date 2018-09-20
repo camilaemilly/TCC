@@ -3,6 +3,9 @@ package br.diabetes.permissao;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import br.diabetes.permissao.comandos.CriarPermissao;
+import br.diabetes.permissao.comandos.EditarPermissao;
+
 @Entity
 public class Permissao {
 	@EmbeddedId
@@ -14,13 +17,20 @@ public class Permissao {
 	public Permissao() {
 	}
 
-	public Permissao(Permissao novaPermissao) {
+	public Permissao(CriarPermissao comando) {
 		this.id = new PermissaoId();
-		this.nome = novaPermissao.getNome();
-		this.email = novaPermissao.getEmail();
-		this.papel = novaPermissao.getPapel();
+		this.nome = comando.getNome();
+		this.email = comando.getEmail();
+		this.papel = comando.getPapel();
 	}
-
+	
+	public void apply(EditarPermissao comando) {
+		this.id = comando.getId();
+		this.nome = comando.getNome();
+		this.email = comando.getEmail();
+		this.papel = comando.getPapel();
+	}
+	
 	public PermissaoId getId() {
 		return id;
 	}

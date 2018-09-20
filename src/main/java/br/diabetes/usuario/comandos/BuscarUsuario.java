@@ -1,16 +1,10 @@
-package br.diabetes.usuario;
+package br.diabetes.usuario.comandos;
 
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import br.diabetes.security.Criptografia;
-import br.diabetes.usuario.comandos.CriarUsuario;
-import br.diabetes.usuario.comandos.EditarUsuario;
+import br.diabetes.usuario.Usuario;
+import br.diabetes.usuario.UsuarioId;
 
-@Entity
-public class Usuario {
-	@EmbeddedId
+public class BuscarUsuario {
 	private UsuarioId id;
 	private String nome;
 	private String email;
@@ -24,42 +18,23 @@ public class Usuario {
 	private float peso;
 	private float altura;
 	private int ativo;
-
-	public Usuario() {
+	
+	public BuscarUsuario(Usuario comandos) {
+		this.id = comandos.getId();
+		this.nome = comandos.getNome();
+		this.email = comandos.getEmail();
+		this.senha = comandos.getSenha();
+		this.sexo = comandos.getSexo();
+		this.cep = comandos.getCep();
+		this.telefone = comandos.getTelefone();
+		this.cidade = comandos.getCidade();
+		this.estado = comandos.getEstado();
+		this.nascimento = comandos.getNascimento();
+		this.peso = comandos.getPeso();
+		this.altura = comandos.getAltura();
+		this.ativo = comandos.getAtivo();
 	}
 	
-	public Usuario(CriarUsuario comando) throws NoSuchAlgorithmException {
-		this.id = new UsuarioId();
-		this.nome = comando.getNome();
-		this.email = comando.getEmail();
-		this.senha = Criptografia.criptografa(comando.getSenha());
-		this.sexo = comando.getSexo();
-		this.cep = comando.getCep();
-		this.telefone = comando.getTelefone();
-		this.cidade = comando.getCidade();
-		this.estado = comando.getEstado();
-		this.nascimento = comando.getNascimento();
-		this.peso = comando.getPeso();
-		this.altura = comando.getAltura();
-		this.ativo = comando.getAtivo();
-	}
-	
-	public void apply(EditarUsuario comando) throws NoSuchAlgorithmException {
-		this.id = comando.getId();
-		this.nome = comando.getNome();
-		this.email = comando.getEmail();
-		this.senha = Criptografia.criptografa(comando.getSenha());
-		this.sexo = comando.getSexo();
-		this.cep = comando.getCep();
-		this.telefone = comando.getTelefone();
-		this.cidade = comando.getCidade();
-		this.estado = comando.getEstado();
-		this.nascimento = comando.getNascimento();
-		this.peso = comando.getPeso();
-		this.altura = comando.getAltura();
-		this.ativo = comando.getAtivo();
-	}
-
 	public UsuarioId getId() {
 		return id;
 	}

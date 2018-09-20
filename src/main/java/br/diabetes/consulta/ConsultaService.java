@@ -7,15 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.diabetes.consulta.comandos.CriarConsulta;
+import br.diabetes.consulta.comandos.EditarConsulta;
+
 @Service
 @Transactional
 public class ConsultaService {
 	@Autowired
 	private ConsultaRepository repo;
 	
-	public Optional<ConsultaId> executar(Consulta nova) {
-		repo.save(nova);
-		return Optional.of(nova.getId());
+	public Optional<ConsultaId> executar(CriarConsulta comando){
+		Consulta novo = repo.save(new Consulta(comando));
+		return Optional.of(novo.getId());
 	}
 	
 	public List<Consulta> encontrarTodos() {
@@ -30,8 +33,11 @@ public class ConsultaService {
 		repo.deleteById(id);
 	}
 	
-	public Optional<ConsultaId> alterar(Consulta nova) {
-		repo.save(nova);
-		return Optional.of(nova.getId());
+	public Optional<ConsultaId> alterar(EditarConsulta comando) {
+		Optional<Consulta> optional = repo.findById(comando.getId());
+		Consulta consulta = optional.get();
+		consulta.apply(comando);
+		repo.save(consulta);
+		return Optional.of(comando.getId());
 	}
 }

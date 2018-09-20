@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.diabetes.alarme.comandos.CriarAlarme;
+import br.diabetes.alarme.comandos.EditarAlarme;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -48,7 +50,7 @@ public class AlarmeController {
 
 	@ApiOperation("Cadastra alarmes")
 	@PostMapping
-	public ResponseEntity<AlarmeId> post(@RequestBody Alarme comando) throws SQLException {
+	public ResponseEntity<AlarmeId> post(@RequestBody CriarAlarme comando) throws SQLException {
 		Optional<AlarmeId> optionalAlarmeId = service.executar(comando);
 		if (optionalAlarmeId.isPresent()) {
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(optionalAlarmeId.get()).toUri();
@@ -59,7 +61,7 @@ public class AlarmeController {
 	
 	@ApiOperation("Altera alarmes")
 	@PutMapping("/{id}")
-	public ResponseEntity<AlarmeId> putCirurgia(@RequestBody Alarme comando) throws SQLException {
+	public ResponseEntity<AlarmeId> putCirurgia(@RequestBody EditarAlarme comando) throws SQLException {
 		Optional<AlarmeId> optionalAlarmeId = service.alterar(comando);
 		if (optionalAlarmeId.isPresent()) {
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(optionalAlarmeId.get()).toUri();
