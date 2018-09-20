@@ -1,9 +1,11 @@
 package br.diabetes.usuario;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+
+import br.diabetes.security.Criptografia;
 
 @Entity
 public class Usuario {
@@ -20,23 +22,25 @@ public class Usuario {
 	private Date nascimento;
 	private float peso;
 	private float altura;
+	private int ativo;
 
 	public Usuario() {
 	}
 
-	public Usuario(Usuario novaUsuario) {
+	public Usuario(Usuario novoUsuario) throws NoSuchAlgorithmException {
 		this.id = new UsuarioId();
-		this.nome = novaUsuario.getNome();
-		this.email = novaUsuario.getEmail();
-		this.setSenha(novaUsuario.getSenha());
-		this.setSexo(novaUsuario.getSexo());
-		this.setCep(novaUsuario.getCep());
-		this.setTelefone(novaUsuario.getTelefone());
-		this.setCidade(novaUsuario.getCidade());
-		this.setEstado(novaUsuario.getEstado());
-		this.setNascimento(novaUsuario.getNascimento());
-		this.setPeso(novaUsuario.getPeso());
-		this.setAltura(novaUsuario.getAltura());
+		this.nome = novoUsuario.getNome();
+		this.email = novoUsuario.getEmail();
+		this.senha = Criptografia.criptografa(novoUsuario.getSenha());
+		this.sexo = novoUsuario.getSexo();
+		this.cep = novoUsuario.getCep();
+		this.telefone = novoUsuario.getTelefone();
+		this.cidade = novoUsuario.getCidade();
+		this.estado = novoUsuario.getEstado();
+		this.nascimento = novoUsuario.getNascimento();
+		this.peso = novoUsuario.getPeso();
+		this.altura = novoUsuario.getAltura();
+		this.ativo = novoUsuario.getAtivo();
 	}
 
 	public UsuarioId getId() {
@@ -129,5 +133,13 @@ public class Usuario {
 
 	public void setAltura(float altura) {
 		this.altura = altura;
+	}
+
+	public int getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(int ativo) {
+		this.ativo = ativo;
 	}
 }
