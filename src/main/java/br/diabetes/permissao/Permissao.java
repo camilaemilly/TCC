@@ -1,15 +1,26 @@
 package br.diabetes.permissao;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
 import br.diabetes.permissao.comandos.CriarPermissao;
 import br.diabetes.permissao.comandos.EditarPermissao;
+import br.diabetes.usuario.UsuarioId;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
 public class Permissao {
 	@EmbeddedId
+	@AttributeOverride(name = "value", column = @Column(name = "id"))
+	@Setter(AccessLevel.NONE)
 	private PermissaoId id;
+	@AttributeOverride(name = "value", column = @Column(name = "id_usuario"))
+	private UsuarioId idUsuario;
 	private String nome;
 	private String email;
 	private String papel;
@@ -17,8 +28,9 @@ public class Permissao {
 	public Permissao() {
 	}
 
-	public Permissao(CriarPermissao comando) {
+	public Permissao(CriarPermissao comando, UsuarioId id) {
 		this.id = new PermissaoId();
+		this.idUsuario = id;
 		this.nome = comando.getNome();
 		this.email = comando.getEmail();
 		this.papel = comando.getPapel();
@@ -57,5 +69,9 @@ public class Permissao {
 
 	public void setPapel(String papel) {
 		this.papel = papel;
+	}
+
+	public UsuarioId getIdUsuario() {
+		return idUsuario;
 	}
 }

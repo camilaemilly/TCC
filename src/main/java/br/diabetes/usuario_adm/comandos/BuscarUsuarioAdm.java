@@ -2,17 +2,19 @@ package br.diabetes.usuario_adm.comandos;
 
 import br.diabetes.usuario_adm.UsuarioAdm;
 import br.diabetes.usuario_adm.UsuarioAdmId;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class BuscarUsuarioAdm {
 	private UsuarioAdmId id;
 	private String nome;
-	private String email;
 	private String senha;
 
 	public BuscarUsuarioAdm(UsuarioAdm comandos) {
 		this.id = comandos.getId();
 		this.nome = comandos.getNome();
-		this.email = comandos.getEmail();
 		this.senha = comandos.getSenha();
 	}
 	
@@ -26,14 +28,6 @@ public class BuscarUsuarioAdm {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getSenha() {

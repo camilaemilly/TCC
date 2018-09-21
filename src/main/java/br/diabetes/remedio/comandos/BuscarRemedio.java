@@ -5,7 +5,11 @@ import java.util.Date;
 
 import br.diabetes.remedio.Remedio;
 import br.diabetes.remedio.RemedioId;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class BuscarRemedio {
 	private RemedioId id;
 	private String nome;
@@ -13,7 +17,6 @@ public class BuscarRemedio {
 	private Date dataFim;
 	private String composicao;
 	private Time horario;
-
 
 	public BuscarRemedio(Remedio comandos) {
 		this.id = comandos.getId();
@@ -23,7 +26,7 @@ public class BuscarRemedio {
 		this.composicao = comandos.getComposicao();
 		this.horario = comandos.getHorario();
 	}
-	
+
 	public RemedioId getId() {
 		return id;
 	}

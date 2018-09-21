@@ -2,16 +2,27 @@ package br.diabetes.consulta;
 
 import java.util.Date;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
 import br.diabetes.consulta.comandos.CriarConsulta;
 import br.diabetes.consulta.comandos.EditarConsulta;
+import br.diabetes.usuario.UsuarioId;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
 public class Consulta {
 	@EmbeddedId
+	@AttributeOverride(name = "value", column = @Column(name = "id"))
+	@Setter(AccessLevel.NONE)
 	private ConsultaId id;
+	@AttributeOverride(name = "value", column = @Column(name = "id_usuario"))
+	private UsuarioId idUsuario;
 	private String nome;
 	private Date data;
 	private String medico;
@@ -20,8 +31,9 @@ public class Consulta {
 	public Consulta() {
 	}
 
-	public Consulta(CriarConsulta comando) {
+	public Consulta(CriarConsulta comando, UsuarioId id) {
 		this.id = new ConsultaId();
+		this.idUsuario = id;
 		this.nome = comando.getNome();
 		this.data = comando.getData();
 		this.medico = comando.getMedico();
@@ -35,7 +47,7 @@ public class Consulta {
 		this.medico = comando.getMedico();
 		this.local = comando.getLocal();
 	}
-
+	
 	public ConsultaId getId() {
 		return id;
 	}

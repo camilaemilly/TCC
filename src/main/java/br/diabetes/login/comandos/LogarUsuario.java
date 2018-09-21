@@ -5,7 +5,6 @@ public class LogarUsuario {
 	private String senha;
 
 	public LogarUsuario() {
-		// default constructor
 	}
 
 	public String getIdentificador() {

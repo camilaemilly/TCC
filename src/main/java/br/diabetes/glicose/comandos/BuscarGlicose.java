@@ -2,57 +2,41 @@ package br.diabetes.glicose.comandos;
 
 import java.util.Date;
 
-import br.diabetes.consulta.Consulta;
-import br.diabetes.consulta.ConsultaId;
+import br.diabetes.glicose.Glicose;
+import br.diabetes.glicose.GlicoseId;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class BuscarGlicose {
-	private ConsultaId id;
-	private String nome;
-	private Date data;
-	private String medico;
-	private String local;
+	private GlicoseId id;
+	private float valor;
+	private Date dataUltimaMedicao;
 
-	public BuscarGlicose(Consulta comandos) {
+	public BuscarGlicose(Glicose comandos) {
 		this.id = comandos.getId();
-		this.nome = comandos.getNome();
-		this.data = comandos.getData();
-		this.medico = comandos.getMedico();
-		this.local = comandos.getLocal();
+		this.valor = comandos.getValor();
+		this.dataUltimaMedicao = comandos.getDataUltimaMedicao();
 	}
 	
-	public ConsultaId getId() {
+	public GlicoseId getId() {
 		return id;
 	}
-
-	public String getNome() {
-		return nome;
+	
+	public float getValor() {
+		return valor;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(float valor) {
+		this.valor = valor;
 	}
 	
-	public Date getData() {
-		return data;
+	public Date getDataUltimaMedicao() {
+		return dataUltimaMedicao;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
-	}
-	
-	public String getMedico() {
-		return medico;
-	}
-
-	public void setMedico(String medico) {
-		this.medico = medico;
-	}
-	
-	public String getLocal() {
-		return local;
-	}
-
-	public void setLocal(String local) {
-		this.local = local;
+	public void setDataUltimaMedicao(Date dataUltimaMedicao) {
+		this.dataUltimaMedicao = dataUltimaMedicao;
 	}
 }

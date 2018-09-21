@@ -1,10 +1,13 @@
 package br.diabetes.consulta.comandos;
-
 import java.util.Date;
 
 import br.diabetes.consulta.Consulta;
 import br.diabetes.consulta.ConsultaId;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class BuscarConsulta {
 	private ConsultaId id;
 	private String nome;
@@ -19,7 +22,7 @@ public class BuscarConsulta {
 		this.medico = comandos.getMedico();
 		this.local = comandos.getLocal();
 	}
-	
+
 	public ConsultaId getId() {
 		return id;
 	}

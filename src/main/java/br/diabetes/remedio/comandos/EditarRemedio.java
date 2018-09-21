@@ -4,7 +4,11 @@ import java.sql.Time;
 import java.util.Date;
 
 import br.diabetes.remedio.RemedioId;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class EditarRemedio {
 	private RemedioId id;
 	private String nome;

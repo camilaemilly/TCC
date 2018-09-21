@@ -1,86 +1,75 @@
 package br.diabetes.glicose;
 
 import java.net.URI;
-import java.sql.SQLException;
-import java.util.List;
+import java.nio.file.AccessDeniedException;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
+import br.diabetes.glicose.comandos.BuscarGlicose;
 import br.diabetes.glicose.comandos.CriarGlicose;
 import br.diabetes.glicose.comandos.EditarGlicose;
+import br.diabetes.security.Autentica;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api
+@Api("Basic Glicose Controller")
 @RestController
 @RequestMapping("/glicose")
+@CrossOrigin
 public class GlicoseController {
+	private static final String ACESSONEGADO = "Acesso negado";
+
 	@Autowired
-	private GlicoseService service;
+	private GlicoseService serviceGlicose;
 
-	@ApiOperation("Busca hemoglobinas glicadas")
+	@Autowired
+	private Autentica autentica;
+
+	@ApiOperation("Busque a sua glicose")
 	@GetMapping
-	public ResponseEntity<List<Glicose>> get() {
-		List<Glicose> optionalGlicose = service.encontrarTodos();
-		if(!optionalGlicose.isEmpty()) {
-			return ResponseEntity.ok(optionalGlicose);
+	public ResponseEntity<BuscarGlicose> getGlicose(@RequestHeader String token) throws AccessDeniedException {
+		if (autentica.autenticaRequisicao(token)) {
+			Optional<BuscarGlicose> optionalGlicoses = serviceGlicose.encontrar(autentica.idUser(token));
+			if (optionalGlicoses.isPresent()) {
+				return ResponseEntity.ok(optionalGlicoses.get());
+			}
+			throw new NullPointerException("Não existe nenhuma glicose cadastrada no banco de dados");
 		}
-		return ResponseEntity.notFound().build();
-	}
-	
-	@ApiOperation("Busca hemoglobinas glicadas por id")
-	@GetMapping("/{id}")
-	public ResponseEntity<Glicose> get(@PathVariable GlicoseId id) {
-		System.out.println(id);
-		Optional<Glicose> optionalGlicose = service.encontrar(id);
-		if (optionalGlicose.isPresent()) {
-			return ResponseEntity.ok(optionalGlicose.get());
-		}
-		return ResponseEntity.notFound().build();
+		throw new AccessDeniedException(ACESSONEGADO);
 	}
 
-	@ApiOperation("Cadastra hemoglobinas glicadas")
+	@ApiOperation("Cadastre uma nova glicose")
 	@PostMapping
-	public ResponseEntity<GlicoseId> post(@RequestBody CriarGlicose comando) throws SQLException {
-		Optional<GlicoseId> optionalGlicoseId = service.executar(comando);
-		if (optionalGlicoseId.isPresent()) {
-			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(optionalGlicoseId.get()).toUri();
-			return ResponseEntity.created(location).build();
+	public ResponseEntity<String> postGlicose(@RequestBody CriarGlicose comando, @RequestHeader String token)
+			throws AccessDeniedException {
+		if (autentica.autenticaRequisicao(token)) {
+			Optional<GlicoseId> optionalGlicoseId = serviceGlicose.salvar(comando, autentica.idUser(token));
+			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+					.buildAndExpand(optionalGlicoseId).toUri();
+			return ResponseEntity.created(location).body("A glicose foi cadastrada com sucesso");
 		}
-		return ResponseEntity.badRequest().build();
-	}
-	
-	@ApiOperation("Altera hemoglobinas glicadas")
-	@PutMapping("/{id}")
-	public ResponseEntity<GlicoseId> putCirurgia(@RequestBody EditarGlicose comando) throws SQLException {
-		Optional<GlicoseId> optionalGlicoseId = service.alterar(comando);
-		if (optionalGlicoseId.isPresent()) {
-			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(optionalGlicoseId.get()).toUri();
-			return ResponseEntity.created(location).build();
-		}
-		return ResponseEntity.badRequest().build();
+		throw new AccessDeniedException(ACESSONEGADO);
 	}
 
-	@ApiOperation("Deleta hemoglobinas glicadas")
-	@DeleteMapping("/{id}")
-	public ResponseEntity<GlicoseId> deleteGlicose(@PathVariable GlicoseId id) throws SQLException {
-		Optional<Glicose> optionalGlicose = service.encontrar(id);
-		if (optionalGlicose.isPresent()) {
-			service.deletar(id);
-			return ResponseEntity.accepted().build();
+	@ApiOperation("Altere uma glicose")
+	@PutMapping
+	public ResponseEntity<String> putGlicose(@RequestBody EditarGlicose comando, @RequestHeader String token)
+			throws AccessDeniedException {
+		if (autentica.autenticaRequisicao(token)) {
+			if (serviceGlicose.alterar(comando, autentica.idUser(token)).isPresent())
+				return ResponseEntity.ok().body("A glicose foi alterada com sucesso");
+			throw new NullPointerException("A glicose a ser alterada não existe no banco de dados");
 		}
-		return ResponseEntity.badRequest().build();
+		throw new AccessDeniedException(ACESSONEGADO);
 	}
+
 }
-

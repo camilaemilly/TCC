@@ -2,7 +2,13 @@ package br.diabetes.usuario.comandos;
 
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class CriarUsuario {
+	private String nomeCompleto;
 	private String nome;
 	private String email;
 	private String senha;
@@ -16,6 +22,14 @@ public class CriarUsuario {
 	private float altura;
 	private int ativo;
 
+	public String getNomeCompleto() {
+		return nomeCompleto;
+	}
+
+	public void setNomeCompleto(String nomeCompleto) {
+		this.nomeCompleto = nomeCompleto;
+	}
+	
 	public String getNome() {
 		return nome;
 	}

@@ -3,15 +3,24 @@ package br.diabetes.remedio;
 import java.sql.Time;
 import java.util.Date;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import br.diabetes.remedio.comandos.CriarRemedio;
 import br.diabetes.remedio.comandos.EditarRemedio;
+import br.diabetes.usuario.UsuarioId;
+import lombok.AccessLevel;
+import lombok.Setter;
 
 @Entity
 public class Remedio {
 	@EmbeddedId
+	@AttributeOverride(name = "value", column = @Column(name = "id"))
+	@Setter(AccessLevel.NONE)
 	private RemedioId id;
+	@AttributeOverride(name = "value", column = @Column(name = "id_usuario"))
+	private UsuarioId idUsuario;
 	private String nome;
 	private Date dataInicio;
 	private Date dataFim;
@@ -21,8 +30,9 @@ public class Remedio {
 	public Remedio() {
 	}
 
-	public Remedio(CriarRemedio comando) {
+	public Remedio(CriarRemedio comando, UsuarioId id) {
 		this.id = new RemedioId();
+		this.idUsuario = id;
 		this.nome = comando.getNome();
 		this.dataInicio = comando.getDataInicio();
 		this.dataFim = comando.getDataFim();
@@ -81,5 +91,9 @@ public class Remedio {
 
 	public void setHorario(Time horario) {
 		this.horario = horario;
+	}
+
+	public UsuarioId getIdUsuario() {
+		return idUsuario;
 	}
 }

@@ -1,8 +1,12 @@
 package br.diabetes.usuario_adm.comandos;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class CriarUsuarioAdm {
 	private String nome;
-	private String email;
 	private String senha;
 
 	public String getNome() {
@@ -11,14 +15,6 @@ public class CriarUsuarioAdm {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
 	}
 
 	public String getSenha() {

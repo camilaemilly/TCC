@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-
 import br.diabetes.login.comandos.IdentificarUsuario;
 import br.diabetes.login.comandos.LogarUsuario;
 import br.diabetes.usuario.UsuarioId;
@@ -14,9 +13,9 @@ public class Autentica {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private String selectUser = "select nome, email from usuario where nome_usuario = ? or email = ? and ativo = 1";
-	private String idUser = "select id, nome, email from usuario where nome_usuario = ? or email = ? and ativo = 1";
-	private String selectAdm = "select nome from usuario_adm where nome_usuario = ?";
+	private String selectUser = "select nome, email from usuario where nome = ? or email = ? and ativo = 1";
+	private String idUser = "select id, nome, email from usuario where nome = ? or email = ? and ativo = 1";
+	private String selectAdm = "select nome from usuario_adm where nome = ?";
 
 	private static final String COLUNAUSERNAME = "nome";
 	private static final String COLUNAEMAIL = "email";

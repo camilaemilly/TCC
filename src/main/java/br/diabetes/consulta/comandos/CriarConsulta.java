@@ -2,6 +2,11 @@ package br.diabetes.consulta.comandos;
 
 import java.util.Date;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class CriarConsulta {
 	private String nome;
 	private Date data;
@@ -39,4 +44,5 @@ public class CriarConsulta {
 	public void setLocal(String local) {
 		this.local = local;
 	}
+	
 }

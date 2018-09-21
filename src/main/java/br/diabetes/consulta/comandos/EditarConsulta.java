@@ -1,9 +1,12 @@
 package br.diabetes.consulta.comandos;
 
 import java.util.Date;
-
 import br.diabetes.consulta.ConsultaId;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class EditarConsulta {
 	private ConsultaId id;
 	private String nome;

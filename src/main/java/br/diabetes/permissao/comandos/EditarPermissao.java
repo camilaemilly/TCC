@@ -1,7 +1,11 @@
 package br.diabetes.permissao.comandos;
 
 import br.diabetes.permissao.PermissaoId;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class EditarPermissao {
 	private PermissaoId id;
 	private String nome;

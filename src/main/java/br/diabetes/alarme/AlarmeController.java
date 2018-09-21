@@ -1,72 +1,75 @@
 package br.diabetes.alarme;
 
 import java.net.URI;
-import java.sql.SQLException;
-import java.util.List;
+import java.nio.file.AccessDeniedException;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
+import br.diabetes.alarme.comandos.BuscarAlarme;
 import br.diabetes.alarme.comandos.CriarAlarme;
 import br.diabetes.alarme.comandos.EditarAlarme;
+import br.diabetes.security.Autentica;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api
+@Api("Basic Alarme Controller")
 @RestController
 @RequestMapping("/alarme")
+@CrossOrigin
 public class AlarmeController {
+	private static final String ACESSONEGADO = "Acesso negado";
+
 	@Autowired
-	private AlarmeService service;
+	private AlarmeService serviceAlarme;
 
-	@ApiOperation("Busca alarmes")
+	@Autowired
+	private Autentica autentica;
+
+	@ApiOperation("Busqueo seus Alarmes")
 	@GetMapping
-	public ResponseEntity<List<Alarme>> get() {
-		List<Alarme> optionalAlarme = service.encontrarTodos();
-		if(!optionalAlarme.isEmpty()) {
-			return ResponseEntity.ok(optionalAlarme);
+	public ResponseEntity<BuscarAlarme> getAlarme(@RequestHeader String token) throws AccessDeniedException {
+		if (autentica.autenticaRequisicao(token)) {
+			Optional<BuscarAlarme> optionalAlarmes = serviceAlarme.encontrar(autentica.idUser(token));
+			if (optionalAlarmes.isPresent()) {
+				return ResponseEntity.ok(optionalAlarmes.get());
+			}
+			throw new NullPointerException("Não existe nenhum alarme cadastrado no banco de dados");
 		}
-		return ResponseEntity.notFound().build();
-	}
-	
-	@ApiOperation("Busca alarmes por id")
-	@GetMapping("/{id}")
-	public ResponseEntity<Alarme> get(@PathVariable AlarmeId id) {
-		Optional<Alarme> optionalAlarme = service.encontrar(id);
-		if (optionalAlarme.isPresent()) {
-			return ResponseEntity.ok(optionalAlarme.get());
-		}
-		return ResponseEntity.notFound().build();
+		throw new AccessDeniedException(ACESSONEGADO);
 	}
 
-	@ApiOperation("Cadastra alarmes")
+	@ApiOperation("Cadastre um novo alarme")
 	@PostMapping
-	public ResponseEntity<AlarmeId> post(@RequestBody CriarAlarme comando) throws SQLException {
-		Optional<AlarmeId> optionalAlarmeId = service.executar(comando);
-		if (optionalAlarmeId.isPresent()) {
-			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(optionalAlarmeId.get()).toUri();
-			return ResponseEntity.created(location).build();
+	public ResponseEntity<String> postAlarme(@RequestBody CriarAlarme comando, @RequestHeader String token)
+			throws AccessDeniedException {
+		if (autentica.autenticaRequisicao(token)) {
+			Optional<AlarmeId> optionalAlarmeId = serviceAlarme.salvar(comando, autentica.idUser(token));
+			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+					.buildAndExpand(optionalAlarmeId).toUri();
+			return ResponseEntity.created(location).body("O alarme foi cadastrado com sucesso");
 		}
-		return ResponseEntity.badRequest().build();
+		throw new AccessDeniedException(ACESSONEGADO);
 	}
-	
-	@ApiOperation("Altera alarmes")
-	@PutMapping("/{id}")
-	public ResponseEntity<AlarmeId> putCirurgia(@RequestBody EditarAlarme comando) throws SQLException {
-		Optional<AlarmeId> optionalAlarmeId = service.alterar(comando);
-		if (optionalAlarmeId.isPresent()) {
-			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(optionalAlarmeId.get()).toUri();
-			return ResponseEntity.created(location).build();
+
+	@ApiOperation("Altere um alarme")
+	@PutMapping
+	public ResponseEntity<String> putAlarme(@RequestBody EditarAlarme comando, @RequestHeader String token)
+			throws AccessDeniedException {
+		if (autentica.autenticaRequisicao(token)) {
+			if (serviceAlarme.alterar(comando, autentica.idUser(token)).isPresent())
+				return ResponseEntity.ok().body("O alarme foi alterado com sucesso");
+			throw new NullPointerException("O alarme a ser alterado não existe no banco de dados");
 		}
-		return ResponseEntity.badRequest().build();
+		throw new AccessDeniedException(ACESSONEGADO);
 	}
+
 }
