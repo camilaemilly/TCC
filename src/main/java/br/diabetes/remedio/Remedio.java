@@ -10,14 +10,11 @@ import javax.persistence.Entity;
 import br.diabetes.remedio.comandos.CriarRemedio;
 import br.diabetes.remedio.comandos.EditarRemedio;
 import br.diabetes.usuario.UsuarioId;
-import lombok.AccessLevel;
-import lombok.Setter;
 
 @Entity
 public class Remedio {
 	@EmbeddedId
 	@AttributeOverride(name = "value", column = @Column(name = "id"))
-	@Setter(AccessLevel.NONE)
 	private RemedioId id;
 	@AttributeOverride(name = "value", column = @Column(name = "id_usuario"))
 	private UsuarioId idUsuario;

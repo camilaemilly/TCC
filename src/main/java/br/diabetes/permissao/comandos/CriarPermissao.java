@@ -1,10 +1,5 @@
 package br.diabetes.permissao.comandos;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class CriarPermissao {
 	private String nome;
 	private String email;

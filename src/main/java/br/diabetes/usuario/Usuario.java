@@ -10,21 +10,16 @@ import javax.persistence.Entity;
 import br.diabetes.security.Criptografia;
 import br.diabetes.usuario.comandos.CriarUsuario;
 import br.diabetes.usuario.comandos.EditarUsuario;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-@Getter
 public class Usuario {
 	@EmbeddedId
 	@AttributeOverride(name = "value", column = @Column(name = "id"))
-	@Setter(AccessLevel.NONE)
 	private UsuarioId id;
 	@Column(name = "nome_completo")
 	private String nomeCompleto;
-	@Column(name = "nome")
-	private String nome;
+	@Column(name = "nome_usuario")
+	private String nomeUsuario;
 	private String email;
 	private String senha;
 	private String sexo;
@@ -43,7 +38,7 @@ public class Usuario {
 	public Usuario(CriarUsuario comando) throws NoSuchAlgorithmException {
 		this.id = new UsuarioId();
 		this.nomeCompleto = comando.getNomeCompleto();
-		this.nome = comando.getNome();
+		this.nomeUsuario = comando.getNomeUsuario();
 		this.email = comando.getEmail();
 		this.senha = Criptografia.criptografa(comando.getSenha());
 		this.sexo = comando.getSexo();
@@ -59,8 +54,8 @@ public class Usuario {
 	
 	public void apply(EditarUsuario comando) throws NoSuchAlgorithmException {
 		this.id = comando.getId();
-		this.nome = comando.getNome();
 		this.nomeCompleto = comando.getNomeCompleto();
+		this.nomeUsuario = comando.getNomeUsuario();
 		this.email = comando.getEmail();
 		this.senha = Criptografia.criptografa(comando.getSenha());
 		this.sexo = comando.getSexo();
@@ -86,12 +81,12 @@ public class Usuario {
 		this.nomeCompleto = nomeCompleto;
 	}
 	
-	public String getNome() {
-		return nome;
+	public String getNomeUsuario() {
+		return nomeUsuario;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 	
 	public String getEmail() {

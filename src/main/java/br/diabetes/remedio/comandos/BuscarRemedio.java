@@ -5,11 +5,7 @@ import java.util.Date;
 
 import br.diabetes.remedio.Remedio;
 import br.diabetes.remedio.RemedioId;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public class BuscarRemedio {
 	private RemedioId id;
 	private String nome;

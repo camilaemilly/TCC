@@ -2,15 +2,11 @@ package br.diabetes.usuario.comandos;
 
 import java.util.Date;
 import br.diabetes.usuario.UsuarioId;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public class EditarUsuario {
 	private UsuarioId id;
 	private String nomeCompleto;
-	private String nome;
+	private String nomeUsuario;
 	private String email;
 	private String senha;
 	private String sexo;
@@ -35,12 +31,12 @@ public class EditarUsuario {
 		this.nomeCompleto = nomeCompleto;
 	}
 	
-	public String getNome() {
-		return nome;
+	public String getNomeUsuario() {
+		return nomeUsuario;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 	
 	public String getEmail() {

@@ -3,11 +3,7 @@ import java.util.Date;
 
 import br.diabetes.consulta.Consulta;
 import br.diabetes.consulta.ConsultaId;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public class BuscarConsulta {
 	private ConsultaId id;
 	private String nome;

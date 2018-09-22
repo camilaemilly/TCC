@@ -19,7 +19,7 @@ public class UsuarioService {
 	private UsuarioRepository repo;
 
 	public Optional<UsuarioId> salvar(CriarUsuario comando) throws NoSuchAlgorithmException {
-		if (comando.getNome() != null) {
+		if (comando.getNomeUsuario() != null) {
 			Usuario novo = new Usuario(comando);
 			repo.save(novo);
 			return Optional.of(novo.getId());
@@ -63,7 +63,7 @@ public class UsuarioService {
 
 	public Optional<UsuarioId> alterar(EditarUsuario comando) throws NoSuchAlgorithmException {
 		Optional<Usuario> optional = repo.findById(comando.getId());
-		if (comando.getNome() != null && optional.isPresent()) {
+		if (comando.getNomeUsuario() != null && optional.isPresent()) {
 			Usuario user = optional.get();
 			user.apply(comando);
 			repo.save(user);

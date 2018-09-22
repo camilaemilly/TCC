@@ -2,11 +2,6 @@ package br.diabetes.consulta.comandos;
 
 import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class CriarConsulta {
 	private String nome;
 	private Date data;

@@ -8,19 +8,14 @@ import javax.persistence.Entity;
 import br.diabetes.security.Criptografia;
 import br.diabetes.usuario_adm.comandos.CriarUsuarioAdm;
 import br.diabetes.usuario_adm.comandos.EditarUsuarioAdm;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
-@Getter
 public class UsuarioAdm {
 	@EmbeddedId
 	@AttributeOverride(name = "value", column = @Column(name = "id"))
-	@Setter(AccessLevel.NONE)
 	private UsuarioAdmId id;
-	@Column(name = "nome")
-	private String nome;
+	@Column(name = "nome_usuario")
+	private String nomeUsuario;
 	private String senha;
 
 	public UsuarioAdm() {
@@ -28,13 +23,13 @@ public class UsuarioAdm {
 	
 	public UsuarioAdm(CriarUsuarioAdm comando) throws NoSuchAlgorithmException {
 		this.id = new UsuarioAdmId();
-		this.nome = comando.getNome();
+		this.nomeUsuario = comando.getNome();
 		this.senha = Criptografia.criptografa(comando.getSenha());
 	}
 	
 	public void apply(EditarUsuarioAdm comando) throws NoSuchAlgorithmException {
 		this.id = comando.getId();
-		this.nome = comando.getNome();
+		this.nomeUsuario = comando.getNome();
 		this.senha = Criptografia.criptografa(comando.getSenha());
 	}
 
@@ -42,12 +37,12 @@ public class UsuarioAdm {
 		return id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getNomeUsuario() {
+		return nomeUsuario;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNomeUsuario(String nomeUsuario) {
+		this.nomeUsuario = nomeUsuario;
 	}
 
 	public String getSenha() {

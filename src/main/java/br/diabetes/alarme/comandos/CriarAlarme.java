@@ -2,11 +2,6 @@ package br.diabetes.alarme.comandos;
 
 import java.sql.Time;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class CriarAlarme {
 	private String descricao;
 	private Time horario;

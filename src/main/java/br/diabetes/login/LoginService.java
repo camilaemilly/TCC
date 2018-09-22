@@ -15,16 +15,16 @@ public class LoginService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private String sqlAdm = "select nome, senha from usuario_adm " + "where nome = ? and senha = ?";
+	private String sqlAdm = "select nome_usuario, senha from usuario_adm " + "where nome_usuario = ? and senha = ?";
 
-	private String sqlNomeUsuario = "select nome, senha, ativo from usuario "
-			+ "where nome = ? and senha = ? and ativo = 1";
+	private String sqlNomeUsuario = "select nome_usuario, senha, ativo from usuario "
+			+ "where nome_usuario = ? and senha = ? and ativo = 1";
 
 	private String sqlEmail = "select email, senha, ativo from usuario "
 			+ "where email = ? and senha = ? and ativo = 1";
 
 	private static final String COLUNASENHA = "senha";
-	private static final String COLUNANOMEUSUARIO = "nome";
+	private static final String COLUNANOMEUSUARIO = "nome_usuario";
 	private static final String COLUNAEMAIL = "email";
 
 	public boolean consultarUsuario(LogarUsuario comando) throws NoSuchAlgorithmException {

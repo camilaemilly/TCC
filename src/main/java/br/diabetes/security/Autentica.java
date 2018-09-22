@@ -13,11 +13,11 @@ public class Autentica {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
-	private String selectUser = "select nome, email from usuario where nome = ? or email = ? and ativo = 1";
-	private String idUser = "select id, nome, email from usuario where nome = ? or email = ? and ativo = 1";
-	private String selectAdm = "select nome from usuario_adm where nome = ?";
+	private String selectUser = "select nome_usuario, email from usuario where nome_usuario = ? or email = ? and ativo = 1";
+	private String idUser = "select id, nome_usuario, email from usuario where nome_usuario = ? or email = ? and ativo = 1";
+	private String selectAdm = "select nome_usuario from usuario_adm where nome_usuario = ?";
 
-	private static final String COLUNAUSERNAME = "nome";
+	private static final String COLUNAUSERNAME = "nome_usuario";
 	private static final String COLUNAEMAIL = "email";
 
 	public boolean autenticaRequisicao(String token) {

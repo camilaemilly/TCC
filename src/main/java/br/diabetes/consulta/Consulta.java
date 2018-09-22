@@ -10,16 +10,10 @@ import javax.persistence.Entity;
 import br.diabetes.consulta.comandos.CriarConsulta;
 import br.diabetes.consulta.comandos.EditarConsulta;
 import br.diabetes.usuario.UsuarioId;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-
 @Entity
-@Getter
 public class Consulta {
 	@EmbeddedId
 	@AttributeOverride(name = "value", column = @Column(name = "id"))
-	@Setter(AccessLevel.NONE)
 	private ConsultaId id;
 	@AttributeOverride(name = "value", column = @Column(name = "id_usuario"))
 	private UsuarioId idUsuario;

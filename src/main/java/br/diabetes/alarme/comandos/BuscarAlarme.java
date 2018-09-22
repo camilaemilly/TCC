@@ -4,11 +4,7 @@ import java.sql.Time;
 
 import br.diabetes.alarme.Alarme;
 import br.diabetes.alarme.AlarmeId;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public class BuscarAlarme {
 	private AlarmeId id;
 	private String descricao;

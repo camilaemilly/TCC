@@ -2,11 +2,6 @@ package br.diabetes.glicose.comandos;
 
 import java.util.Date;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class CriarGlicose {
 	private float valor;
 	private Date dataUltimaMedicao;

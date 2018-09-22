@@ -3,11 +3,7 @@ package br.diabetes.glicose.comandos;
 import java.util.Date;
 
 import br.diabetes.glicose.GlicoseId;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public class EditarGlicose {
 	private GlicoseId id;
 	private float valor;

@@ -4,11 +4,7 @@ import java.util.Date;
 
 import br.diabetes.glicose.Glicose;
 import br.diabetes.glicose.GlicoseId;
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public class BuscarGlicose {
 	private GlicoseId id;
 	private float valor;
