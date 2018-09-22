@@ -1,12 +1,15 @@
 package br.diabetes.alarmes.remedio.comandos;
 
 import java.sql.Time;
+import java.util.Date;
 
 import br.diabetes.remedio.RemedioId;
 
 public class CriarAlarmeRemedio {
 	private String descricao;
 	private Time horario;
+	private Date dataInicio;
+	private Date dataFim;
 	private boolean status;
 	private RemedioId idRemedio;
 	
@@ -38,6 +41,22 @@ public class CriarAlarmeRemedio {
 
 	public void setIdRemedio(RemedioId idRemedio) {
 		this.idRemedio = idRemedio;
+	}
+	
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
 	}
 	
 }

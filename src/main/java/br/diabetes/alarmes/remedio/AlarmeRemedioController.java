@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 
 @Api("Basic Alarme Controller")
 @RestController
-@RequestMapping("/alarme")
+@RequestMapping("/alarme/remedio")
 @CrossOrigin
 public class AlarmeRemedioController {
 	private static final String ACESSONEGADO = "Acesso negado";

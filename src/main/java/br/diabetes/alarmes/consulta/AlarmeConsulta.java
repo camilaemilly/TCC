@@ -1,6 +1,7 @@
 package br.diabetes.alarmes.consulta;
 
 import java.sql.Time;
+import java.util.Date;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
@@ -20,6 +21,8 @@ public class AlarmeConsulta {
 	@AttributeOverride(name = "value", column = @Column(name = "id_usuario"))
 	private UsuarioId idUsuario;
 	private Time horario;
+	private Date dataInicio;
+	private Date dataFim;
 	private String descricao;
 	private boolean status;
 	@AttributeOverride(name = "value", column = @Column(name = "id_medicamento"))
@@ -33,6 +36,8 @@ public class AlarmeConsulta {
 		this.setIdUsuario(id);
 		this.descricao = comando.getDescricao();
 		this.horario = comando.getHorario();
+		this.dataInicio = comando.getDataInicio();
+		this.dataFim = comando.getDataFim();
 		this.status = comando.getStatus();
 		this.setIdConsulta(comando.getIdConsulta());
 	}
@@ -41,6 +46,8 @@ public class AlarmeConsulta {
 		this.id = comando.getId();
 		this.descricao = comando.getDescricao();
 		this.horario = comando.getHorario();
+		this.dataInicio = comando.getDataInicio();
+		this.dataFim = comando.getDataFim();
 		this.status = comando.getStatus();
 		this.setIdConsulta(comando.getIdConsulta());
 	}
@@ -87,5 +94,21 @@ public class AlarmeConsulta {
 
 	public void setIdUsuario(UsuarioId idUsuario) {
 		this.idUsuario = idUsuario;
+	}
+
+	public Date getDataInicio() {
+		return dataInicio;
+	}
+
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public Date getDataFim() {
+		return dataFim;
+	}
+
+	public void setDataFim(Date dataFim) {
+		this.dataFim = dataFim;
 	}
 }
