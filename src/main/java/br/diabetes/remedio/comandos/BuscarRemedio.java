@@ -1,6 +1,5 @@
 package br.diabetes.remedio.comandos;
 
-import java.sql.Time;
 import java.util.Date;
 
 import br.diabetes.remedio.Remedio;
@@ -12,7 +11,6 @@ public class BuscarRemedio {
 	private Date dataInicio;
 	private Date dataFim;
 	private String composicao;
-	private Time horario;
 
 	public BuscarRemedio(Remedio comandos) {
 		this.id = comandos.getId();
@@ -20,7 +18,6 @@ public class BuscarRemedio {
 		this.dataInicio = comandos.getDataInicio();
 		this.dataFim = comandos.getDataFim();
 		this.composicao = comandos.getComposicao();
-		this.horario = comandos.getHorario();
 	}
 
 	public RemedioId getId() {
@@ -57,13 +54,5 @@ public class BuscarRemedio {
 
 	public void setComposicao(String composicao) {
 		this.composicao = composicao;
-	}
-	
-	public Time getHorario() {
-		return horario;
-	}
-
-	public void setHorario(Time horario) {
-		this.horario = horario;
 	}
 }

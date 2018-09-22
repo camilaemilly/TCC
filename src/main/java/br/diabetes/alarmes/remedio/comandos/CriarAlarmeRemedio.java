@@ -1,11 +1,14 @@
-package br.diabetes.alarme.comandos;
+package br.diabetes.alarmes.remedio.comandos;
 
 import java.sql.Time;
 
-public class CriarAlarme {
+import br.diabetes.remedio.RemedioId;
+
+public class CriarAlarmeRemedio {
 	private String descricao;
 	private Time horario;
 	private boolean status;
+	private RemedioId idRemedio;
 	
 	public String getDescricao() {
 		return descricao;
@@ -27,6 +30,14 @@ public class CriarAlarme {
 	}
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	public RemedioId getIdRemedio() {
+		return idRemedio;
+	}
+
+	public void setIdRemedio(RemedioId idRemedio) {
+		this.idRemedio = idRemedio;
 	}
 	
 }

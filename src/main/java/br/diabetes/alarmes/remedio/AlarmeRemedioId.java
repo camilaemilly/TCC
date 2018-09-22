@@ -1,17 +1,17 @@
-package br.diabetes.alarme;
+package br.diabetes.alarmes.remedio;
 
 import javax.persistence.Embeddable;
 
 import br.diabetes.BaseId;
 
 @Embeddable
-public class AlarmeId extends BaseId {
+public class AlarmeRemedioId extends BaseId {
 	private static final long serialVersionUID = 8965550305250511524L;
 	
-	public AlarmeId() {
+	public AlarmeRemedioId() {
 		super();
 	}
-	public AlarmeId(String value) {
+	public AlarmeRemedioId(String value) {
 		super(value);
 	}
 }

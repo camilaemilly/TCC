@@ -24,7 +24,7 @@ public class BuscarGlicose {
 		return valor;
 	}
 
-	public void setNome(float valor) {
+	public void setValor(float valor) {
 		this.valor = valor;
 	}
 	

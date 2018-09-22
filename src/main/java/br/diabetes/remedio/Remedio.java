@@ -1,6 +1,5 @@
 package br.diabetes.remedio;
 
-import java.sql.Time;
 import java.util.Date;
 
 import javax.persistence.AttributeOverride;
@@ -22,7 +21,6 @@ public class Remedio {
 	private Date dataInicio;
 	private Date dataFim;
 	private String composicao;
-	private Time horario;
 
 	public Remedio() {
 	}
@@ -34,7 +32,6 @@ public class Remedio {
 		this.dataInicio = comando.getDataInicio();
 		this.dataFim = comando.getDataFim();
 		this.composicao = comando.getComposicao();
-		this.horario = comando.getHorario();
 	}
 	
 	public void apply(EditarRemedio comando) {
@@ -43,7 +40,6 @@ public class Remedio {
 		this.dataInicio = comando.getDataInicio();
 		this.dataFim = comando.getDataFim();
 		this.composicao = comando.getComposicao();
-		this.horario = comando.getHorario();
 	}
 	
 	public RemedioId getId() {
@@ -80,14 +76,6 @@ public class Remedio {
 
 	public void setComposicao(String composicao) {
 		this.composicao = composicao;
-	}
-	
-	public Time getHorario() {
-		return horario;
-	}
-
-	public void setHorario(Time horario) {
-		this.horario = horario;
 	}
 
 	public UsuarioId getIdUsuario() {

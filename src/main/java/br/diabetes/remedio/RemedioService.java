@@ -19,7 +19,7 @@ public class RemedioService {
 	private RemedioRepository repo;
 
 	public Optional<RemedioId> salvar(CriarRemedio comando, UsuarioId id) {
-		if (comando.getHorario() != null) {
+		if (comando.getComposicao() != null) {
 			Remedio novo = repo.save(new Remedio(comando, id));
 			return Optional.of(novo.getId());
 		}

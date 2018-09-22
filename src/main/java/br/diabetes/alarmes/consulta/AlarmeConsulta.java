@@ -1,4 +1,4 @@
-package br.diabetes.alarme;
+package br.diabetes.alarmes.consulta;
 
 import java.sql.Time;
 
@@ -7,37 +7,42 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
-import br.diabetes.alarme.comandos.CriarAlarme;
-import br.diabetes.alarme.comandos.EditarAlarme;
+import br.diabetes.alarmes.consulta.comandos.CriarAlarmeConsulta;
+import br.diabetes.alarmes.consulta.comandos.EditarAlarmeConsulta;
 import br.diabetes.usuario.UsuarioId;
+import br.diabetes.consulta.ConsultaId;
 
 @Entity
-public class Alarme {
+public class AlarmeConsulta {
 	@EmbeddedId
 	@AttributeOverride(name = "value", column = @Column(name = "id"))
-	private AlarmeId id;
+	private AlarmeConsultaId id;
 	@AttributeOverride(name = "value", column = @Column(name = "id_usuario"))
 	private UsuarioId idUsuario;
 	private Time horario;
 	private String descricao;
 	private boolean status;
+	@AttributeOverride(name = "value", column = @Column(name = "id_medicamento"))
+	private ConsultaId idConsulta;
 
-	public Alarme() {
+	public AlarmeConsulta() {
 	}
 
-	public Alarme(CriarAlarme comando, UsuarioId id) {
-		this.id = new AlarmeId();
-		this.idUsuario = id;
+	public AlarmeConsulta(CriarAlarmeConsulta comando, UsuarioId id) {
+		this.id = new AlarmeConsultaId();
+		this.setIdUsuario(id);
 		this.descricao = comando.getDescricao();
 		this.horario = comando.getHorario();
 		this.status = comando.getStatus();
+		this.setIdConsulta(comando.getIdConsulta());
 	}
 	
-	public void apply(EditarAlarme comando) {
+	public void apply(EditarAlarmeConsulta comando) {
 		this.id = comando.getId();
 		this.descricao = comando.getDescricao();
 		this.horario = comando.getHorario();
 		this.status = comando.getStatus();
+		this.setIdConsulta(comando.getIdConsulta());
 	}
 	
 	public Time getHorario() {
@@ -64,7 +69,23 @@ public class Alarme {
 		this.status = status;
 	}
 
-	public AlarmeId getId() {
+	public AlarmeConsultaId getId() {
 		return id;
+	}
+
+	public ConsultaId getIdConsulta() {
+		return idConsulta;
+	}
+
+	public void setIdConsulta(ConsultaId idConsulta) {
+		this.idConsulta = idConsulta;
+	}
+
+	public UsuarioId getIdUsuario() {
+		return idUsuario;
+	}
+
+	public void setIdUsuario(UsuarioId idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 }

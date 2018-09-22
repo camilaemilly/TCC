@@ -49,7 +49,7 @@ public class Glicose {
 		return valor;
 	}
 
-	public void setNome(float valor) {
+	public void setValor(float valor) {
 		this.valor = valor;
 	}
 	
