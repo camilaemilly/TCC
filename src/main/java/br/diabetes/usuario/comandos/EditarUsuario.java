@@ -17,7 +17,6 @@ public class EditarUsuario {
 	private Date nascimento;
 	private float peso;
 	private float altura;
-	private int ativo;
 	
 	public UsuarioId getId() {
 		return id;
@@ -117,13 +116,5 @@ public class EditarUsuario {
 
 	public void setAltura(float altura) {
 		this.altura = altura;
-	}
-
-	public int getAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(int ativo) {
-		this.ativo = ativo;
 	}
 }

@@ -49,7 +49,7 @@ public class Usuario {
 		this.nascimento = comando.getNascimento();
 		this.peso = comando.getPeso();
 		this.altura = comando.getAltura();
-		this.ativo = comando.getAtivo();
+		this.ativo = 1;
 	}
 	
 	public void apply(EditarUsuario comando) throws NoSuchAlgorithmException {
@@ -66,7 +66,6 @@ public class Usuario {
 		this.nascimento = comando.getNascimento();
 		this.peso = comando.getPeso();
 		this.altura = comando.getAltura();
-		this.ativo = comando.getAtivo();
 	}
 	
 	public UsuarioId getId() {

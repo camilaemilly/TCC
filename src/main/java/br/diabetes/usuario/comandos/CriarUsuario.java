@@ -15,7 +15,6 @@ public class CriarUsuario {
 	private Date nascimento;
 	private float peso;
 	private float altura;
-	private int ativo;
 
 	public String getNomeCompleto() {
 		return nomeCompleto;
@@ -111,13 +110,5 @@ public class CriarUsuario {
 
 	public void setAltura(float altura) {
 		this.altura = altura;
-	}
-
-	public int getAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(int ativo) {
-		this.ativo = ativo;
 	}
 }

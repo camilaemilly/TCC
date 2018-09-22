@@ -18,7 +18,6 @@ public class BuscarUsuario {
 	private Date nascimento;
 	private float peso;
 	private float altura;
-	private int ativo;
 	
 	public BuscarUsuario(Usuario comandos) {
 		this.id = comandos.getId();
@@ -34,7 +33,6 @@ public class BuscarUsuario {
 		this.nascimento = comandos.getNascimento();
 		this.peso = comandos.getPeso();
 		this.altura = comandos.getAltura();
-		this.ativo = comandos.getAtivo();
 	}
 	
 	public UsuarioId getId() {
@@ -131,13 +129,5 @@ public class BuscarUsuario {
 
 	public void setAltura(float altura) {
 		this.altura = altura;
-	}
-
-	public int getAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(int ativo) {
-		this.ativo = ativo;
 	}
 }
